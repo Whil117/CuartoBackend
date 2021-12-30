@@ -22,7 +22,11 @@ const listsales = require('./routers/listsales/listsales');
 app.use('/dashboard', addnewsale);
 app.use('/dashboard', listsales);
 
-app.get('/', (req, res) => res.send('Express + TypeScript Server'));
+app.get('/', (req, res) =>
+  res.json({
+    message: 'Welcome to the dashboard'
+  })
+);
 app.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
 });
