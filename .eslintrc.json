@@ -5,7 +5,9 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "prettier",
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -13,13 +15,21 @@
         "sourceType": "module"
     },
     "rules": {
+        "indent": [
+            "error",
+            4
+        ],
         "linebreak-style": [
             "error",
-            "windows"
+            "unix"
         ],
         "quotes": [
             "error",
-            "single"
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
         ],
         "prefer-const": [
             "error"
@@ -28,7 +38,6 @@
             "error",
             "always"
         ],
-        "semi": "off",
         "no-trailing-spaces": "error",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/ban-types": "off",
