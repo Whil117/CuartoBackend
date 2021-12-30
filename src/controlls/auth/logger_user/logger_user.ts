@@ -8,7 +8,7 @@ const registerUser = require('../../../models/register/register');
 const router = express.Router();
 dotenv.config();
 
-router.get('/signin', async (req: Request, res: Response) => {
+router.post('/signin', async (req: Request, res: Response) => {
   const { username, password }: UserData = req.body;
   const user = await registerUser.findOne({ username });
   if (!user) {
@@ -31,7 +31,6 @@ router.get('/signin', async (req: Request, res: Response) => {
     user: {
       _id: user._id,
       username: user.username,
-      email: user.email,
       date: user.date
     }
   });

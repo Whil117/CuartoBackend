@@ -19,9 +19,6 @@ const registerUserSchema = new Schema<IUser>({
   date: {
     type: Date,
     default: Date.now
-  },
-  _id: {
-    type: Types.ObjectId
   }
 });
 
