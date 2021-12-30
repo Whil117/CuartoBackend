@@ -1,63 +1,68 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose';
 
 interface INewSale {
-  address: string
-  description: string
+  address: string;
+  description: string;
   details: {
-    rooms: number
-    bathrooms: number
-    bedrooms: number
-    kitchens: number
-  }
-  price: number
-  images: string[]
-  offer: string[]
-  title: string
+    rooms: number;
+    bathrooms: number;
+    bedrooms: number;
+    kitchens: number;
+  };
+  price: number;
+  images: string[];
+  offer: string[];
+  title: string;
+  author: string;
 }
 
 const NewSaleSchema = new Schema<INewSale>({
   address: {
     type: String,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   details: {
     rooms: {
       type: Number,
-      required: true,
+      required: true
     },
     bathrooms: {
       type: Number,
-      required: true,
+      required: true
     },
     bedrooms: {
       type: Number,
-      required: true,
+      required: true
     },
     kitchens: {
       type: Number,
-      required: true,
-    },
+      required: true
+    }
   },
   price: {
     type: Number,
-    required: true,
+    required: true
   },
   images: {
     type: [String],
-    required: true,
+    required: true
   },
   offer: {
     type: [String],
-    required: true,
+    required: true
+  },
+  author: {
+    type: String,
+    required: true
   },
   title: {
     type: String,
-    required: true,
-  },
-})
+    required: true
+  }
+});
 
-module.exports = model('NewSale', NewSaleSchema)
+module.exports = model('NewSale', NewSaleSchema);
