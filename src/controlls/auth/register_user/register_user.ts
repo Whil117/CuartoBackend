@@ -1,50 +1,51 @@
-import express, { Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
-import { KeyJwt } from '../../../environments/key_jwt'
-import dotenv from 'dotenv'
+import express, { Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+import { KeyJwt } from '../../../environments/key_jwt';
+import dotenv from 'dotenv';
 
-const registerUser = require('../../../models/register/register')
-const router = express.Router()
-dotenv.config()
+const registerUser = require('../../../models/register/register');
+const router = express.Router();
+dotenv.config();
 
 router.get('/signup', async (_, res: Response) => {
   res.status(405).json({
     error: 'Method not allowed',
-    message: 'method signin get does not exist',
-  })
-})
+    message: 'method signin get does not exist'
+  });
+});
 
 router.post('/signup', async (req: Request, res: Response) => {
   const user = await new registerUser({
-    ...req.body,
-  })
+    ...req.body
+  });
   const isUserExist: Boolean = await registerUser.findOne({
-    username: user.username,
-  })
+    username: user.username
+  });
 
   if (isUserExist) {
     return res.status(405).json({
-      authentication: false,
+      auth: false,
       type: 'signup',
-      message: 'Error: user registred',
-    })
+      message: 'Error: user registred'
+    });
   }
   try {
-    user.password = await user.EncryptPassword(user.password)
-    await user.save()
-    const token = jwt.sign({ _id: user._id }, KeyJwt())
+    user.password = await user.EncryptPassword(user.password);
+    await user.save();
+    const token = jwt.sign({ _id: user._id }, KeyJwt());
     res.status(200).json({
       token,
+      auth: true,
       user: {
         _id: user._id,
         username: user.username,
         email: user.email,
-        date: user.date,
-      },
-    })
+        date: user.date
+      }
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-})
+});
 
-module.exports = router
+module.exports = router;

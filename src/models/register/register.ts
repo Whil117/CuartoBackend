@@ -4,16 +4,11 @@ const bcrypt = require('bcrypt');
 
 interface IUser {
   username: string;
-  email: string;
   password: string;
 }
 
 const registerUserSchema = new Schema<IUser>({
   username: {
-    type: String,
-    required: true
-  },
-  email: {
     type: String,
     required: true
   },
