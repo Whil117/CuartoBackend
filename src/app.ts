@@ -15,6 +15,7 @@ dotenv.config();
 const authentication = require('./auth/authenticaction');
 app.use(authentication.registerUser);
 app.use(authentication.loggerUser);
+app.use(authentication.verifyUser);
 
 //routers
 const addnewsale = require('./routers/addnewsale/addnewsale');
