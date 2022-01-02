@@ -24,9 +24,10 @@ router.post('/signup', async (req: Request, res: Response) => {
 
   if (isUserExist) {
     return res.status(405).json({
-      auth: false,
-      type: 'signup',
-      message: 'Error: user registred'
+      message: {
+        title: 'User already exist',
+        text: 'This user is already registered'
+      }
     });
   }
   try {
@@ -38,7 +39,6 @@ router.post('/signup', async (req: Request, res: Response) => {
 
     res.status(200).json({
       token,
-      auth: true,
       user: {
         _id: user._id,
         username: user.username,
