@@ -55,7 +55,7 @@ router.post('/preview', async (req: Request, res: Response) => {
       });
     }
     res.status(200).json({
-      sale,
+      ...sale,
       author: user
     });
   }
