@@ -11,14 +11,14 @@ router.post('/addnewsale', async (req: Request, res: Response) => {
   const token: string | string[] | any =
     req.headers['token'] && req.headers['token'];
 
-  if (!token) {
-    res.status(401).json({
-      message: {
-        title: 'Authorization',
-        text: 'You are not authorized to access this resource'
-      }
-    });
-  }
+  // if (!token) {
+  //   res.status(401).json({
+  //     message: {
+  //       title: 'Authorization',
+  //       text: 'You are not authorized to access this resource'
+  //     }
+  //   });
+  // }
 
   if (token) {
     const decoded = jwt.verify(token, KeyJwt());
