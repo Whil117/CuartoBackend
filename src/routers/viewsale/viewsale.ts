@@ -43,7 +43,7 @@ router.post('/preview', async (req: Request, res: Response) => {
         author: user._id
       },
       {
-        author: 0
+        author: user
       }
     );
     if (!sale) {
@@ -55,8 +55,7 @@ router.post('/preview', async (req: Request, res: Response) => {
       });
     }
     res.status(200).json({
-      ...sale,
-      author: user
+      sale
     });
   }
 });
