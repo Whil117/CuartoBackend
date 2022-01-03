@@ -10,8 +10,10 @@ dotenv.config();
 router.post('/addnewsale', async (req: Request, res: Response) => {
   if (!req.headers['token']) {
     res.status(401).json({
-      error: 'your not authorized',
-      message: 'your not authorized'
+      message: {
+        title: 'Authorization',
+        text: 'You are not authorized to access this resource'
+      }
     });
   }
   const token: string | string[] | any =
@@ -20,8 +22,10 @@ router.post('/addnewsale', async (req: Request, res: Response) => {
     const decoded = jwt.verify(token, KeyJwt());
     if (!decoded) {
       res.status(401).json({
-        error: 'your token isnt valid',
-        message: 'your token isnt valid'
+        message: {
+          title: 'Token',
+          text: 'Token is invalid'
+        }
       });
     }
     const addnewsale = await new NewSale({
@@ -30,7 +34,10 @@ router.post('/addnewsale', async (req: Request, res: Response) => {
     try {
       await addnewsale.save();
       res.status(200).json({
-        message: 'newsale saved'
+        message: {
+          title: 'Success',
+          text: 'Your sale has been saved'
+        }
       });
     } catch (error) {
       console.log(error);
