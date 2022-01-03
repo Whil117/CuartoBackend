@@ -31,12 +31,33 @@ router.post('/preview', async (req: Request, res: Response) => {
         }
       });
     }
-    const user = await registerUser.findOne({ _id: decoded._id });
-    const sale = await NewSale.findOne({
-      _id: req.body.id,
-      author: user._id
+    const user = await registerUser.findOne(
+      { _id: decoded._id },
+      {
+        password: 0
+      }
+    );
+    const sale = await NewSale.findOne(
+      {
+        _id: req.body.id,
+        author: user._id
+      },
+      {
+        author: 0
+      }
+    );
+    if (!sale) {
+      res.status(404).json({
+        message: {
+          title: 'Sale',
+          text: 'Sale not found'
+        }
+      });
+    }
+    res.status(200).json({
+      sale,
+      author: user
     });
-    console.log(sale);
   }
 });
 module.exports = router;
