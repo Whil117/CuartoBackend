@@ -20,8 +20,11 @@ app.use(authentication.verifyUser);
 //routers
 const addnewsale = require('./routers/addnewsale/addnewsale');
 const listsales = require('./routers/listsales/listsales');
+const viewsale = require('./routers/viewsale/viewsale');
+
 app.use('/dashboard', addnewsale);
 app.use('/dashboard', listsales);
+app.use('/dashboard', viewsale);
 
 app.get('/', (req, res) =>
   res.json({
