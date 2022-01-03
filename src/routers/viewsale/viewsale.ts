@@ -31,6 +31,7 @@ router.post('/preview', async (req: Request, res: Response) => {
         }
       });
     }
+
     const user = await registerUser.findOne(
       { _id: decoded._id },
       {
@@ -43,7 +44,7 @@ router.post('/preview', async (req: Request, res: Response) => {
         author: user._id
       },
       {
-        author: user
+        author: 0
       }
     );
     if (!sale) {
@@ -55,7 +56,8 @@ router.post('/preview', async (req: Request, res: Response) => {
       });
     }
     res.status(200).json({
-      sale
+      sale,
+      author: user
     });
   }
 });
