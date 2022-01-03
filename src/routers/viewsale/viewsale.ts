@@ -4,10 +4,11 @@ import dotenv from 'dotenv';
 import { KeyJwt } from '../../environments/key_jwt';
 
 const NewSale = require('../../models/newsale/newsale');
+const registerUser = require('../../models/register/register');
 const router = express.Router();
 dotenv.config();
 
-router.post('/addnewsale', async (req: Request, res: Response) => {
+router.post('/preview', async (req: Request, res: Response) => {
   const token: string | string[] | any =
     req.headers['token'] && req.headers['token'];
 
@@ -21,7 +22,7 @@ router.post('/addnewsale', async (req: Request, res: Response) => {
   }
 
   if (token) {
-    const decoded = jwt.verify(token, KeyJwt());
+    const decoded: any = jwt.verify(token, KeyJwt());
     if (!decoded) {
       res.status(401).json({
         message: {
@@ -30,21 +31,12 @@ router.post('/addnewsale', async (req: Request, res: Response) => {
         }
       });
     }
-    const addnewsale = await new NewSale({
-      ...req.body
+    const user = await registerUser.findOne({ _id: decoded._id });
+    const sale = await NewSale.findOne({
+      _id: req.body.id,
+      author: user._id
     });
-    try {
-      await addnewsale.save();
-      res.status(200).json({
-        message: {
-          title: 'Success',
-          text: 'Your sale has been saved'
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(sale);
   }
 });
-
 module.exports = router;
