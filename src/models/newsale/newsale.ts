@@ -7,7 +7,7 @@ interface INewSale {
     rooms: number;
     bathrooms: number;
     bedrooms: number;
-    kitchens: number;
+    guests: number;
   };
   price: number;
   images: string[];
@@ -38,7 +38,7 @@ const NewSaleSchema = new Schema<INewSale>({
       type: Number,
       required: true
     },
-    kitchens: {
+    guests: {
       type: Number,
       required: true
     }
