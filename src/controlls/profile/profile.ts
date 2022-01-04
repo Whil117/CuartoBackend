@@ -33,7 +33,7 @@ router.put('/profile', async (req: Request, res: Response) => {
     {
       $set: {
         avatar: req.body.avatar,
-        name: req.body.name,
+        username: req.body.username,
         email: req.body.email
       }
     },
