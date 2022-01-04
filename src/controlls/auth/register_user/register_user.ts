@@ -41,7 +41,6 @@ router.post('/signup', async (req: Request, res: Response) => {
         _id: user._id,
         username: user.username,
         email: user.email,
-        password: user.password,
         date: user.date
       }
     });
