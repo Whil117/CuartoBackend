@@ -17,11 +17,14 @@ app.use(authentication.registerUser);
 app.use(authentication.loggerUser);
 app.use(authentication.verifyUser);
 
+//controllers
+
 //routers
 const addnewsale = require('./routers/addnewsale/addnewsale');
 const listsales = require('./routers/listsales/listsales');
 const viewsale = require('./routers/viewsale/viewsale');
-
+const profile = require('../src/controlls/profile/profile');
+app.use('/dashboard', profile);
 app.use('/dashboard', addnewsale);
 app.use('/dashboard', listsales);
 app.use('/dashboard', viewsale);
