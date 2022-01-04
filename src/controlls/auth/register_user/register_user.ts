@@ -34,8 +34,6 @@ router.post('/signup', async (req: Request, res: Response) => {
     user.password = await user.EncryptPassword(user.password);
     await user.save();
     const token = jwt.sign({ _id: user._id }, KeyJwt());
-    console.log(token);
-    console.log(user);
 
     res.status(200).json({
       token,
@@ -43,6 +41,7 @@ router.post('/signup', async (req: Request, res: Response) => {
         _id: user._id,
         username: user.username,
         email: user.email,
+        password: user.password,
         date: user.date
       }
     });

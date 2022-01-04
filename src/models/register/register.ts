@@ -16,6 +16,12 @@ const registerUserSchema = new Schema<IUser>({
     type: String,
     required: true
   },
+  email: {
+    type: String
+  },
+  avatar: {
+    type: String
+  },
   date: {
     type: Date,
     default: Date.now
