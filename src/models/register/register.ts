@@ -1,8 +1,8 @@
-import { Schema, model, Types } from 'mongoose';
+import { Schema, model, Types, Document } from 'mongoose';
 
 const bcrypt = require('bcrypt');
 
-interface IUser {
+interface IUser extends Document {
   username: string;
   password: string;
 }
@@ -25,6 +25,13 @@ const registerUserSchema = new Schema<IUser>({
   date: {
     type: Date,
     default: Date.now
+  }
+});
+
+registerUserSchema.pre<IUser>('save', function (next) {
+  const user = this;
+  if (!user.isModified('password')) {
+    return next();
   }
 });
 

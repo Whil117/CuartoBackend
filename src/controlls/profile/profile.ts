@@ -7,7 +7,7 @@ const registerUser = require('../../models/register/register');
 const router = express.Router();
 dotenv.config();
 
-router.put('/profile/avatar', async (req: Request, res: Response) => {
+router.put('/profile', async (req: Request, res: Response) => {
   const token: string | string[] | any =
     req.headers['token'] && req.headers['token'];
 
@@ -28,23 +28,24 @@ router.put('/profile/avatar', async (req: Request, res: Response) => {
       }
     });
   }
-  const user = await registerUser.findOne({ _id: decoded._id });
-  if (!user) {
-    res.status(404).json({
-      message: {
-        title: 'User not found',
-        text: 'This user is not registered'
+  const updateUser = await registerUser.findOneAndUpdate(
+    { _id: decoded._id },
+    {
+      $set: {
+        avatar: req.body.avatar,
+        name: req.body.name,
+        email: req.body.email
       }
-    });
-  }
+    },
+    { useFindAndModify: false }
+  );
 
-  user.avatar = req.body.avatar;
   try {
-    await user.save();
+    await updateUser.save();
     res.status(200).json({
       message: {
         title: 'Success',
-        text: 'Your avatar has been saved'
+        text: 'Your profile has been update'
       }
     });
   } catch (error) {
