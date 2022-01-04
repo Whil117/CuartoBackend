@@ -28,13 +28,6 @@ const registerUserSchema = new Schema<IUser>({
   }
 });
 
-registerUserSchema.pre<IUser>('save', function (next) {
-  const user = this;
-  if (!user.isModified('password')) {
-    return next();
-  }
-});
-
 registerUserSchema.methods.EncryptPassword = async function (password: string) {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(password, salt);
