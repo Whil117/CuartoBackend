@@ -10,18 +10,11 @@ dotenv.config();
 
 router.post('/listsales', async (req: Request, res: Response) => {
   const token: string | any = req.headers['token'];
-  const id: string = req.body.id;
-  if (!id) {
-    res.status(401).json({
-      error: 'your not has provide a id',
-      message: 'your not has provide a id'
-    });
-  }
   if (!token) {
     return res.status(401).send({ auth: false, message: 'No token provided.' });
   }
 
-  const verifyToken = jwt.verify(token, KeyJwt());
+  const verifyToken: { _id: string } | any = jwt.verify(token, KeyJwt());
   if (!verifyToken) {
     res.status(405).json({
       error: 405,
@@ -29,7 +22,7 @@ router.post('/listsales', async (req: Request, res: Response) => {
     });
   }
   try {
-    const salesUser = await NewSale.find({ author: id });
+    const salesUser = await NewSale.find({ author: verifyToken._id });
     const listSales = salesUser.map((sale: Sale) => {
       return {
         id: sale._id,

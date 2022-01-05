@@ -62,6 +62,9 @@ const NewSaleSchema = new Schema<INewSale>({
   title: {
     type: String,
     required: true
+  },
+  favorite: {
+    type: Boolean
   }
 });
 
