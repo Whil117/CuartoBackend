@@ -41,7 +41,7 @@ router.get('/listsales', async (req: Request, res: Response) => {
   }
 });
 
-router.delete('/listsales/item', async (req: Request, res: Response) => {
+router.post('/listsales/item', async (req: Request, res: Response) => {
   const token: string | any = req.headers['token'];
   if (!token) {
     return res.status(401).send({ auth: false, message: 'No token provided.' });
