@@ -38,12 +38,21 @@ router.put('/favoritesale', async (req: Request, res: Response) => {
     );
     try {
       await favoritesale.save();
-      res.status(200).json({
-        message: {
-          title: 'Success',
-          text: 'Your favorite sale has been saved'
-        }
-      });
+      if (req.body.favorite) {
+        res.status(200).json({
+          message: {
+            title: 'Favorite',
+            text: 'you have linked this one of your favorites'
+          }
+        });
+      } else {
+        res.status(200).json({
+          message: {
+            title: 'Favorite',
+            text: 'you have unlinked this one out of your favorites'
+          }
+        });
+      }
     } catch (error) {
       console.log(error);
     }
