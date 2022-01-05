@@ -57,8 +57,8 @@ router.post('/listsales/item', async (req: Request, res: Response) => {
     await NewSale.findByIdAndDelete(req.body.id);
     res.status(200).json({
       message: {
-        title: 'Delete success',
-        text: 'Delete an sale successfull'
+        title: 'Delete Sale',
+        text: 'you have successfully deleted a sale'
       }
     });
   } catch (error) {}
