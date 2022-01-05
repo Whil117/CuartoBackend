@@ -8,7 +8,7 @@ const NewSale = require('../../models/newsale/newsale');
 const router = express.Router();
 dotenv.config();
 
-router.post('/listsales', async (req: Request, res: Response) => {
+router.get('/listsales', async (req: Request, res: Response) => {
   const token: string | any = req.headers['token'];
   if (!token) {
     return res.status(401).send({ auth: false, message: 'No token provided.' });
