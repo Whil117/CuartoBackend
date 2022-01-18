@@ -25,12 +25,19 @@ const listsales = require('./routers/listsales/listsales');
 const viewsale = require('./routers/viewsale/viewsale');
 const profile = require('../src/controlls/profile/profile');
 const favoritesales = require('./routers/favoritessales/favoritessales');
+const addclient = require('./routers/addclient/addclient.router');
+const viewclient = require('./routers/viewclients/viewclients.router');
+const deletclient = require('./routers/deleteClient/deleteclient.router');
 
 app.use('/dashboard', favoritesales);
 app.use('/dashboard', profile);
 app.use('/dashboard', addnewsale);
 app.use('/dashboard', listsales);
 app.use('/dashboard', viewsale);
+///PEOPLE ADDONS
+app.use('/dashboard', addclient);
+app.use('/dashboard', viewclient);
+app.use('/dashboard', deletclient);
 
 app.get('/', (req, res) =>
   res.json({
