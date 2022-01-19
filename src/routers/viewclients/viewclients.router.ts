@@ -85,6 +85,7 @@ router.post('/viewclient/client', async (req: Request, res: Response) => {
         id: findClient._id,
         name: findClient.name,
         address: findClient.address,
+        phone_number: findClient.phone_number,
         author: findClient.author,
         image: findClient.image
       });
