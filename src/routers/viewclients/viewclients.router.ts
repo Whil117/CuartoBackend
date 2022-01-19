@@ -33,10 +33,16 @@ router.get('/viewclient', async (req: Request, res: Response) => {
     try {
       const findClients = await AddClient.find({ author: decoded._id });
       const clients = findClients.map(
-        (client: { _id: string; name: string; image: string }) => {
+        (client: {
+          _id: string;
+          name: string;
+          image: string;
+          address: string;
+        }) => {
           return {
             id: client._id,
             name: client.name,
+            address: client.address,
             image: client.image
           };
         }
