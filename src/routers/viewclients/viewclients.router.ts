@@ -56,4 +56,42 @@ router.get('/viewclient', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/viewclient/client', async (req: Request, res: Response) => {
+  const token: string | string[] | any =
+    req.headers['token'] && req.headers['token'];
+
+  if (!token) {
+    res.status(401).json({
+      message: {
+        title: 'Authorization',
+        text: 'You are not authorized to access this resource'
+      }
+    });
+  }
+  if (token) {
+    const decoded: any = jwt.verify(token, KeyJwt());
+    if (!decoded) {
+      res.status(401).json({
+        message: {
+          title: 'Token',
+          text: 'Token is invalid'
+        }
+      });
+    }
+    try {
+      const findClient = await AddClient.findById(req.body.id);
+
+      return res.status(200).json({
+        id: findClient._id,
+        name: findClient.name,
+        address: findClient.address,
+        author: findClient.author,
+        image: findClient.image
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
+
 module.exports = router;
